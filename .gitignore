@@ -1,0 +1,4 @@
+*.pyc
+key.py
+*.db
+test.py
