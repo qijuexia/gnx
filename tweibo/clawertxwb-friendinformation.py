@@ -8,20 +8,10 @@ from oauth import *
 from tweibo import *
 from key import *
 
-def _authon(J):
-    ''' 参数认证函数'''
-    oauth = OAuth2Handler()
-    oauth.set_app_key_secret(appkey[J],appsecret[J],CALLBACK_URL)  #这一步开始传递认证参数，可以在此循环
-    oauth.set_access_token(accesstoken[J])
-    oauth.set_openid(openid[J])
-    api = API(oauth)
-    print "appkey%s"%(J)
-
-
 def _clawer_information(namenumber):
     '''抓取好友信息'''
     J = 0
-    _authon(J)           #认证    
+    api = _authon(J)           #认证    
     cx = sqlite3.connect("txwbfans.db")
     cu = cx.cursor()
     N = 0
@@ -76,16 +66,14 @@ def _clawer_information(namenumber):
         else:
             N = N - 200
             J = (J + 1) % 22
-            _authon(J)
+            api = _authon(J)
             cu.execute('select * from queue')
             row = cu.fetchone()
             i = 1
-            while i<namenumber:
+            while i < namenumber:
                 i = i + 1
                 row = cu.fetchone()
             
-            
-
 if __name__=='__main__':
     beginnumber =                                #设置初始值
     _clawer_information(beginnumber)

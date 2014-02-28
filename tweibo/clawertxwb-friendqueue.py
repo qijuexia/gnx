@@ -9,20 +9,10 @@ from oauth import *
 from tweibo import *
 from key import *
 
-
-def _authon(J):
-    ''' 参数认证函数'''
-    oauth = OAuth2Handler()
-    oauth.set_app_key_secret(appkey[J],appsecret[J],CALLBACK_URL)  #这一步开始传递认证参数，可以在此循环
-    oauth.set_access_token(accesstoken[J])
-    oauth.set_openid(openid[J])
-    api = API(oauth)
-    print"appkey%s"%(J)
-
 def _clawer_queue(namenumber):
     '''抓取好友进入队列函数'''
     J = 0
-    _authon(J)           #认证    
+    api = _authon(J)           #认证    
     cx = sqlite3.connect("txwbfans.db")
     cu = cx.cursor()
     N = 0
@@ -38,7 +28,7 @@ def _clawer_queue(namenumber):
         try:
             fans = api.get.friends__user_fanslist(format="json",reqnum=25,startindex=0,name=tempname,install=0,mode=0)
             N = N + 1
-            while fans.data.hasnext==0:
+            while fans.data.hasnext == 0:
                 for i in range(0,25):
                     tname = [fans.data.info[i].name]   #注意加上方括号，序列形式
                     cu.execute('select * from queue where name=?',tname)
@@ -77,7 +67,7 @@ def _clawer_queue(namenumber):
         print tempname
         print namenumber
         namenumber = namenumber + 1
-        if N<200:
+        if N < 200:
             cu.execute('select * from queue')
             row = cu.fetchone()
             i = 1
@@ -87,7 +77,7 @@ def _clawer_queue(namenumber):
         else:
             N = N - 200
             J = (J+1) % 22
-            _authon(J)
+            api = _authon(J)
             cu.execute('select * from queue')
             row = cu.fetchone()
             i = 1

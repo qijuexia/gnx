@@ -9,19 +9,10 @@ from oauth import *
 from tweibo import *
 from key import *
 
-def _authon(J):
-    ''' 参数认证函数'''
-    oauth = OAuth2Handler()
-    oauth.set_app_key_secret(appkey[J],appsecret[J],CALLBACK_URL)  #这一步开始传递认证参数，可以在此循环
-    oauth.set_access_token(accesstoken[J])
-    oauth.set_openid(openid[J])
-    api = API(oauth)
-    print "appkey%s" % (J)
-
 def _clawer_friendname(namenumber):
     '''根据列表抓取全部好友名称'''
     J = 0
-    _authon(J)           #认证    
+    api = _authon(J)           #认证    
     cx = sqlite3.connect("txwbfans.db")
     cu = cx.cursor()
     N = 0
@@ -81,7 +72,7 @@ def _clawer_friendname(namenumber):
         print tempname
         print namenumber
         namenumber += 1
-        if N<200:
+        if N < 200:
             cu.execute('select * from queue')
             row = cu.fetchone()
             i = 1
@@ -91,12 +82,12 @@ def _clawer_friendname(namenumber):
         else:
             N = N - 200
             J = (J + 1) % 22
-            _authon(J)
+            api = _authon(J)
             cu.execute('select * from queue')
             row = cu.fetchone()
             i = 1
             while i < namenumber:
-                i = i+1
+                i = i + 1
                 row = cu.fetchone()
             
 if __name__=='__main__':
