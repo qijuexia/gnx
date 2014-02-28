@@ -21,23 +21,23 @@ def _authon(J):
 
 def _clawer_queue(namenumber):
     '''抓取好友进入队列函数'''
-    J=0
+    J = 0
     _authon(J)           #认证    
-    cx=sqlite3.connect("txwbfans.db")
-    cu=cx.cursor()
+    cx = sqlite3.connect("txwbfans.db")
+    cu = cx.cursor()
     N = 0
-    i=1
+    i = 1
     cu.execute("select * from queue")
     row = cu.fetchone()
-    while i<namenumber:
-        i = i+1
+    while i < namenumber:
+        i = i + 1
         row = cu.fetchone()
     while row:
         page = 0
         tempname = row[0]        
         try:
             fans = api.get.friends__user_fanslist(format="json",reqnum=25,startindex=0,name=tempname,install=0,mode=0)
-            N = N+1
+            N = N + 1
             while fans.data.hasnext==0:
                 for i in range(0,25):
                     tname = [fans.data.info[i].name]   #注意加上方括号，序列形式
@@ -85,14 +85,14 @@ def _clawer_queue(namenumber):
                 i = i+1
                 row = cu.fetchone()
         else:
-            N=N-200
-            J=(J+1)%22
+            N = N - 200
+            J = (J+1) % 22
             _authon(J)
             cu.execute('select * from queue')
             row = cu.fetchone()
             i = 1
-            while i<namenumber:
-                i = i+1
+            while i< namenumber:
+                i = i + 1
                 row=cu.fetchone()
 
 
@@ -101,16 +101,3 @@ if __name__=='__main__':
     _clawer_queue(beginnumber)
                 
 
-
-
-
-
-
-
-
-
-
-
-
-            
-    
