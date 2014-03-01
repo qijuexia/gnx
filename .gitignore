@@ -2,3 +2,8 @@
 key.py
 *.db
 test.py
+.DS_Store
+
+# for sublime project
+*.sublime-*
+
