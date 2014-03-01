@@ -67,23 +67,17 @@ def _clawer_queue(namenumber):
         print tempname
         print namenumber
         namenumber = namenumber + 1
-        if N < 200:
-            cu.execute('select * from queue')
-            row = cu.fetchone()
-            i = 1
-            while i<namenumber:
-                i = i+1
-                row = cu.fetchone()
-        else:
+        if N >= 200:
             N = N - 200
-            J = (J+1) % 22
+            J = (J + 1) % 22
             api = _authon(J)
-            cu.execute('select * from queue')
+        
+        cu.execute('select * from queue')
+        row = cu.fetchone()
+        i = 1
+        while i< namenumber:
+            i = i + 1
             row = cu.fetchone()
-            i = 1
-            while i< namenumber:
-                i = i + 1
-                row=cu.fetchone()
 
 
 if __name__=='__main__':
