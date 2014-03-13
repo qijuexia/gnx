@@ -59,7 +59,7 @@ def _clawer_queue(namenumber):
                 print "--finalpage--"
         except:
             print "!!!!!!!!!!!!!!!!!!!!!!!Error comes up########################"
-            filename = "FriendQueueError"
+            filename = "FriendQueueErrorRecord"
             fp = open(filename,'a')
             output = "no.%d"%(namenumber)+"    name="+tempname+"\n"
             fp.write(output.encode('utf-8'))
@@ -71,7 +71,9 @@ def _clawer_queue(namenumber):
             N = N - 200
             J = (J + 1) % 22
             api = _authon(J)
-        
+        f=open('queuenumber.txt','w')
+        f.write(namenumber)
+        f.close()
         cu.execute('select * from queue')
         row = cu.fetchone()
         i = 1
@@ -81,7 +83,9 @@ def _clawer_queue(namenumber):
 
 
 if __name__=='__main__':
-    beginnumber = 2324             #初始的抓取值
+    f=open('queuenumber.txt','r')
+    beginnumber =int(f.read())            #初始的抓取值
+    f.close()
     _clawer_queue(beginnumber)
                 
 

@@ -70,6 +70,7 @@ def _clawer_information(namenumber):
         
             
 if __name__=='__main__':
+
     beginnumber =                                #设置初始值
     _clawer_information(beginnumber)
 

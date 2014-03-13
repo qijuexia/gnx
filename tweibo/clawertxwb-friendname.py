@@ -76,7 +76,10 @@ def _clawer_friendname(namenumber):
             N = N - 200
             J = (J + 1) % 22
             api = _authon(J)
-        
+        f=open("friendnumber.txt",'w')
+        f.write(str(namenumber))
+        f.close()
+               
         cu.execute('select * from queue')
         row = cu.fetchone()
         i = 1
@@ -85,6 +88,8 @@ def _clawer_friendname(namenumber):
             row = cu.fetchone()
             
 if __name__=='__main__':
-    beginnumber = 47562         #初始的抓取值
+    f=open("friendnumber.txt",'r')
+    beginnumber = int(f.read())         #初始的抓取值
+    f.close()
     _clawer_friendname(beginnumber)
 
