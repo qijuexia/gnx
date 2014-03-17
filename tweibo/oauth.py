@@ -1,4 +1,4 @@
-﻿##
+##
 ## OAuth2 demo class
 ##
 #  Wiki: https://github.com/upbit/tweibo-pysdk/wiki/OAuth2Handler
@@ -10,16 +10,7 @@
 #   oauth.set_openid(OPENID)
 
 import time
-from key import *
-def _authon(J):
-    ''' 参数认证函数'''
-    oauth = OAuth2Handler()
-    oauth.set_app_key_secret(appkey[J],appsecret[J],CALLBACK_URL)  #这一步开始传递认证参数，可以在此循环
-    oauth.set_access_token(accesstoken[J])
-    oauth.set_openid(openid[J])
-    api = API(oauth)
-    print "appkey%s"%(J)
-    return api
+
 
 
 class OAuth2Handler(object):

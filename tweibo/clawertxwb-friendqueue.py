@@ -9,12 +9,19 @@ from oauth import *
 from tweibo import *
 from key import *
 
-
+def _authon(J):
+    ''' 参数认证函数'''
+    oauth = OAuth2Handler()
+    oauth.set_app_key_secret(appkey[J],appsecret[J],CALLBACK_URL)  #这一步开始传递认证参数，可以在此循环
+    oauth.set_access_token(accesstoken[J])
+    oauth.set_openid(openid[J])
+    api = API(oauth)
+    print"appkey%s"%(J)
 
 def _clawer_queue(namenumber):
     '''抓取好友进入队列函数'''
     J = 0
-    api = _authon(J)           #认证    
+    _authon(J)           #认证    
     cx = sqlite3.connect("txwbfans.db")
     cu = cx.cursor()
     N = 0
