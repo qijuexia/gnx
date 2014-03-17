@@ -81,7 +81,7 @@ def _clawer_queue(namenumber):
             J = (J + 1) % 22
             api = _authon(J)
         f=open('queuenumber.txt','w')
-        f.write(namenumber)
+        f.write(str(namenumber))
         f.close()
         cu.execute('select * from queue')
         row = cu.fetchone()
