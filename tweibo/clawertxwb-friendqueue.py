@@ -9,6 +9,8 @@ from oauth import *
 from tweibo import *
 from key import *
 
+
+
 def _clawer_queue(namenumber):
     '''抓取好友进入队列函数'''
     J = 0

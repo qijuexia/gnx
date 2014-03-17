@@ -1,4 +1,4 @@
-##
+﻿##
 ## OAuth2 demo class
 ##
 #  Wiki: https://github.com/upbit/tweibo-pysdk/wiki/OAuth2Handler
@@ -10,7 +10,7 @@
 #   oauth.set_openid(OPENID)
 
 import time
-
+from key import *
 def _authon(J):
     ''' 参数认证函数'''
     oauth = OAuth2Handler()
@@ -20,6 +20,7 @@ def _authon(J):
     api = API(oauth)
     print "appkey%s"%(J)
     return api
+
 
 class OAuth2Handler(object):
     def __init__(self, auth_url="https://open.t.qq.com/cgi-bin/oauth2/"):
