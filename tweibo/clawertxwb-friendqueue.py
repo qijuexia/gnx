@@ -17,11 +17,12 @@ def _authon(J):
     oauth.set_openid(openid[J])
     api = API(oauth)
     print"appkey%s"%(J)
+    return api
 
 def _clawer_queue(namenumber):
     '''抓取好友进入队列函数'''
     J = 0
-    _authon(J)           #认证    
+    api = _authon(J)           #认证    
     cx = sqlite3.connect("txwbfans.db")
     cu = cx.cursor()
     N = 0
@@ -66,7 +67,7 @@ def _clawer_queue(namenumber):
                         cu.executemany('insert into queue values(?,?)',canshu)
                         cx.commit()
                 print "--finalpage--"
-        except:
+        except TWeiboError:
             print "!!!!!!!!!!!!!!!!!!!!!!!Error comes up########################"
             filename = "FriendQueueErrorRecord"
             fp = open(filename,'a')
