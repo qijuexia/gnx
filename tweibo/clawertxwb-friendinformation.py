@@ -8,6 +8,16 @@ from oauth import *
 from tweibo import *
 from key import *
 
+def _authon(J):
+    ''' 参数认证函数'''
+    oauth = OAuth2Handler()
+    oauth.set_app_key_secret(appkey[J],appsecret[J],CALLBACK_URL)  #这一步开始传递认证参数，可以在此循环
+    oauth.set_access_token(accesstoken[J])
+    oauth.set_openid(openid[J])
+    api = API(oauth)
+    print"appkey%s"%(J)
+    return api
+
 def _clawer_information(namenumber):
     '''抓取好友信息'''
     J = 0
@@ -60,7 +70,9 @@ def _clawer_information(namenumber):
             N = N - 200
             J = (J + 1) % 22
             api = _authon(J)
-        
+        f=open('informationnumber.txt','w')
+        f.write(str(namenumber))
+        f.close()
         cu.execute('select * from queue')
         row = cu.fetchone()
         i = 1
@@ -70,7 +82,8 @@ def _clawer_information(namenumber):
         
             
 if __name__=='__main__':
-
-    beginnumber =                                #设置初始值
+    f=open('informationnumber.txt','r')
+    beginnumber =int(f.read())            #初始的抓取值
+    f.close()                                #设置初始值
     _clawer_information(beginnumber)
 

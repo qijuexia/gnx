@@ -67,7 +67,7 @@ def _clawer_queue(namenumber):
                         cu.executemany('insert into queue values(?,?)',canshu)
                         cx.commit()
                 print "--finalpage--"
-        except TWeiboError:
+        except :
             print "!!!!!!!!!!!!!!!!!!!!!!!Error comes up########################"
             filename = "FriendQueueErrorRecord"
             fp = open(filename,'a')
